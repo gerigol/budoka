@@ -41,9 +41,14 @@ public class Rank {
     @Column(name = "level")
     private int level;
 
-    public Rank(RankType rankType, int level) {
+    @Column(name = "required_trainings")
+    private int requiredTrainings;
+
+
+    public Rank(RankType rankType, int level, int requiredTrainings) {
         this.name = level + rankType.name();
         this.rankType = rankType;
         this.level = level;
+        this.requiredTrainings = requiredTrainings;
     }
 }
