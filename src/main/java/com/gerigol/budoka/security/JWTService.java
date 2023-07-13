@@ -2,6 +2,7 @@ package com.gerigol.budoka.security;
 
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.security.SignatureException;
 import lombok.RequiredArgsConstructor;
 
 
@@ -13,6 +14,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 import io.jsonwebtoken.*;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
@@ -64,8 +66,19 @@ public class JWTService {
     }
 
     public boolean isTokenValid(String token) {
-        //TODO: implement validation;
-        return false;
+        try {
+            Jwts.parserBuilder()
+                    .setSigningKey(getSignInKey())
+                    .build()
+                    .parseClaimsJws(token);
+            return true;
+        } catch (ExpiredJwtException |
+                 UnsupportedJwtException |
+                 MalformedJwtException |
+                 SignatureException |
+                 IllegalArgumentException e) {
+            throw new AuthenticationCredentialsNotFoundException("JWT was expired or incorrect");
+        }
     }
 
 
