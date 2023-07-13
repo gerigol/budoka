@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -21,7 +22,7 @@ import java.util.Objects;
 @Component
 public class JWTAuthenticationFilter extends OncePerRequestFilter {
     private final JWTService jwtService;
-    private final userDetailsServiceImp userDetailsServiceImp;
+    private final UserDetailsService userDetailsService;
 
     @Override
     protected void doFilterInternal(
@@ -32,7 +33,7 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
         String token = getTokenFromRequest(request);
         if (Objects.nonNull(token) && jwtService.isTokenValid(token)) {
             String username = jwtService.getUsernameFromToken(token);
-            UserDetails userDetails = userDetailsServiceImp.loadUserByUsername(username);
+            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                     userDetails,
                     null,
