@@ -29,7 +29,7 @@ public class SecurityConfig {
                                         "/login",
                                         "/register",
                                         "/api/v1/login",
-                                        "/api/v1/user/**",
+                                        "/api/v1/user",
                                         "/static/**",
                                         "/favicon.ico",
                                         "/manifest.json"
