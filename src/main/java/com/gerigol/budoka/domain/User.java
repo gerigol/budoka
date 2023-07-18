@@ -87,8 +87,8 @@ public class User {
             Role role
     ) {
         this.publicId = publicId;
-        this.email = email;
         this.name = name;
+        this.email = email;
         this.password = password;
         this.role = role;
         this.trainingDays = 0;
