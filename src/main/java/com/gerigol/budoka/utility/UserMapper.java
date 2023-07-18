@@ -9,6 +9,7 @@ import com.gerigol.budoka.domain.User;
 import java.util.UUID;
 
 public class UserMapper {
+
     public static AuthUser toAuthUser(User user) {
         return new AuthUser(user.getEmail(), user.getPassword(), user.getRole());
     }
@@ -17,8 +18,8 @@ public class UserMapper {
         return new LoginCredentials(user.getPublicId(), user.getRole(), user.getName(), token);
     }
 
-    public static User toUser(NewUser newUser) {
-        return new User(UUID.randomUUID(), newUser.name(), newUser.email(), newUser.password(), newUser.role());
+    public static User toUser(NewUser newUser, String encodedPassword) {
+        return new User(UUID.randomUUID(), newUser.name(), newUser.email(), encodedPassword, newUser.role());
     }
 
     public static UserDTO toUserDTO(User user) {
