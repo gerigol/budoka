@@ -73,6 +73,12 @@ public class User {
     @ManyToMany(mappedBy = "users")
     private List<Exam> exams;
 
+    @Column(name = "current_training_amount")
+    private int currentTrainingAmount;
+
+    @Column(name = "reuired_training_amount")
+    private int requiredTrainingAmount;
+
     public User(
             UUID publicId,
             String name,
@@ -81,8 +87,8 @@ public class User {
             Role role
     ) {
         this.publicId = publicId;
-        this.email = email;
         this.name = name;
+        this.email = email;
         this.password = password;
         this.role = role;
         this.trainingDays = 0;
