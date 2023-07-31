@@ -92,7 +92,7 @@ class UserServiceTest {
         assertEquals("encrypted password", capturedUser.getPassword());
     }
 
-    @DisplayName("Test registerUser - User already exists")
+    @DisplayName("Test registerUser - Registration unsuccessful: user already exists")
     @Test
     void test_throw_error_on_register_when_user_already_exists() {
         //Arrange
