@@ -40,5 +40,11 @@ public class Location {
 
     @Column(name = "address")
     private String address;
+
+    public Location(String name, String city, String address) {
+        this.name = name;
+        this.city = city;
+        this.address = address;
+    }
 }
 
