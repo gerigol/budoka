@@ -11,6 +11,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.UUID;
+
 @RequiredArgsConstructor
 @Service
 public class UserService {
@@ -28,4 +31,9 @@ public class UserService {
         User user = userRepository.save(UserMapper.toUser(newUser, passwordEncoder.encode(newUser.password())));
         return UserMapper.toUserDTO(user);
     }
+
+    public List<User> getUsersByPublicId(List<UUID> trainerIds) {
+        return userRepository.findAllByPublicIdIn(trainerIds);
+    }
+
 }
