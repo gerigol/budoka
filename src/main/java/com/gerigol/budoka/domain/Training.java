@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -18,7 +18,6 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 public class Training {
-
 
     @Id
     @SequenceGenerator(
@@ -61,7 +60,7 @@ public class Training {
 
     @Column(name = "trainers")
     @ManyToMany
-    private Set<User> trainers;
+    private List<User> trainers;
 
     @ManyToMany
     @JoinTable(
@@ -69,15 +68,24 @@ public class Training {
             joinColumns = @JoinColumn(name = "training_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
-    private Set<User> users;
+    private List<User> trainees;
 
 
-    public Training(String name, LocalDateTime startDateTime, LocalDateTime endDateTime, Location location, Set<User> trainers) {
+    public Training(UUID publicId,
+                    String name,
+                    LocalDateTime startDateTime,
+                    LocalDateTime endDateTime,
+                    Location location) {
+        this.publicId = publicId;
         this.name = name;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
         this.location = location;
-        this.trainers = trainers;
-        this.users = new HashSet<>();
+        this.trainers = new ArrayList<>();
+        this.trainees = new ArrayList<>();
+    }
+
+    public void addTrainersToTraining(List<User> trainers) {
+        this.trainers.addAll(trainers);
     }
 }
