@@ -68,7 +68,7 @@ public class Training {
             joinColumns = @JoinColumn(name = "training_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
-    private List<User> trainees;
+    private List<User> users;
 
 
     public Training(UUID publicId,
@@ -82,7 +82,7 @@ public class Training {
         this.endDateTime = endDateTime;
         this.location = location;
         this.trainers = new ArrayList<>();
-        this.trainees = new ArrayList<>();
+        this.users = new ArrayList<>();
     }
 
     public void addTrainersToTraining(List<User> trainers) {

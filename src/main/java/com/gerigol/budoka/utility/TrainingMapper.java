@@ -11,6 +11,6 @@ public class TrainingMapper {
                 training.getEndDateTime(),
                 training.getLocation(),
                 training.getTrainers(),
-                training.getTrainees());
+                training.getUsers());
     }
 }
